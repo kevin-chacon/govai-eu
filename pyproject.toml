@@ -1,6 +1,6 @@
 [project]
 name = "govai-eu"
-version = "0.1.0"
+version = "0.1.1"
 description = "EU AI Act compliance inventory from a software list"
 readme = "README.md"
 requires-python = ">=3.10"
