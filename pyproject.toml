@@ -1,16 +1,11 @@
 [project]
 name = "govai-eu"
-version = "0.1.1"
+version = "0.2.0"
 description = "EU AI Act compliance inventory from a software list"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 keywords = ["eu-ai-act", "ai-governance", "compliance", "cli"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-]
 
 dependencies = [
     "typer>=0.9.0",
@@ -21,10 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-anthropic = ["anthropic>=0.20.0"]
-openai    = ["openai>=1.0.0"]
-all       = ["anthropic>=0.20.0", "openai>=1.0.0"]
-dev       = ["pytest>=7.0", "pytest-mock", "ruff"]
+dev = ["pytest>=7.0", "pytest-mock", "ruff"]
 
 [project.scripts]
 govai = "govai.cli:app"
@@ -35,6 +27,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["govai"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"govai/registry" = "govai/registry"
 
 [tool.ruff]
 line-length = 88

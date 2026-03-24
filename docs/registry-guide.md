@@ -2,11 +2,11 @@
 
 This guide explains how to add an enterprise software tool to the govai-eu registry, including how to research a tool's AI features and classify it correctly under the EU AI Act.
 
-The registry is a collection of YAML files in `registry/tools/`. Each file contains one or more tools from the same vendor. When someone runs `govai scan`, tools found in the registry get an instant, accurate classification — no LLM call needed.
+The registry is a collection of YAML files in `govai/registry/tools/`. Each file contains one or more tools from the same vendor. When someone runs `govai scan`, tools found in the registry get an instant, accurate classification — no LLM call needed.
 
 ## The YAML schema
 
-Every tool entry follows the schema defined in `registry/schema.yaml`. Here is the template (`registry/tools/_template.yaml`) with annotations explaining each field:
+Every tool entry follows the schema defined in `govai/registry/schema.yaml`. Here is the template (`govai/registry/tools/_template.yaml`) with annotations explaining each field:
 
 ```yaml
 - name: ""

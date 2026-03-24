@@ -9,8 +9,8 @@ from govai.registry import RegistryLoader
 
 # Path to test fixtures
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
-# Path to real registry data
-REGISTRY_DIR = Path(__file__).parent.parent / "registry" / "tools"
+# Path to real registry data (inside the govai package)
+REGISTRY_DIR = Path(__file__).parent.parent / "govai" / "registry" / "tools"
 
 
 class TestRegistryLookup:

@@ -62,6 +62,7 @@ class TestVersionFlag:
 
     def test_version_flag(self):
         """govai --version exits 0 and shows version."""
+        from govai import __version__
         result = runner.invoke(app, ["--version"])
         assert result.exit_code == 0
-        assert "0.1.0" in result.output
+        assert __version__ in result.output

@@ -14,8 +14,8 @@ from govai.models import (
     ToolInput,
 )
 
-# Default registry path: registry/tools/ relative to project root
-_REGISTRY_DIR = Path(__file__).resolve().parent.parent / "registry" / "tools"
+# Default registry path: govai/registry/tools/ inside the package
+_REGISTRY_DIR = Path(__file__).resolve().parent / "registry" / "tools"
 
 
 class RegistryLoader:
