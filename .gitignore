@@ -32,3 +32,6 @@ govai_report_*
 
 # Ruff
 .ruff_cache/
+
+# MD
+NOTES.md

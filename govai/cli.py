@@ -11,6 +11,7 @@ from rich.table import Table
 
 from govai.classifier import classify_inventory, parse_input_file
 from govai.models import ConfidenceSource, RiskTier
+from govai import __version__
 from govai.reporter import write_reports
 
 _HELP_EPILOG = """
@@ -75,9 +76,23 @@ app = typer.Typer(
 console = Console()
 
 
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(f"govai-eu {__version__}")
+        raise typer.Exit()
+
+
 @app.callback(invoke_without_command=True)
 def callback(
     ctx: typer.Context,
+    version: bool = typer.Option(
+        None,
+        "--version",
+        "-v",
+        help="Show the version and exit.",
+        callback=_version_callback,
+        is_eager=True,
+    ),
 ) -> None:
     """govai — EU AI Act compliance inventory from a software list."""
     if ctx.invoked_subcommand is None:

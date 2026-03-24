@@ -55,3 +55,13 @@ class TestModelsCommand:
         """Ollama no-key alternative section appears in output."""
         result = runner.invoke(app, ["models"])
         assert "No account, no key" in result.output
+
+
+class TestVersionFlag:
+    """Test the --version flag."""
+
+    def test_version_flag(self):
+        """govai --version exits 0 and shows version."""
+        result = runner.invoke(app, ["--version"])
+        assert result.exit_code == 0
+        assert "0.1.0" in result.output
