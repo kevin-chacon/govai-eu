@@ -1,0 +1,41 @@
+[project]
+name = "govai-eu"
+version = "0.1.0"
+description = "EU AI Act compliance inventory from a software list"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["eu-ai-act", "ai-governance", "compliance", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+]
+
+dependencies = [
+    "typer>=0.9.0",
+    "litellm>=1.40.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.20.0"]
+openai    = ["openai>=1.0.0"]
+all       = ["anthropic>=0.20.0", "openai>=1.0.0"]
+dev       = ["pytest>=7.0", "pytest-mock", "ruff"]
+
+[project.scripts]
+govai = "govai.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["govai"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"

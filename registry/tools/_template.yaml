@@ -1,0 +1,16 @@
+# Template for adding a new tool to the govai registry.
+# Copy this file and fill in all fields.
+# See registry/schema.yaml for detailed field descriptions.
+
+- name: ""
+  vendor: ""
+  aliases: []
+  risk_tier: "UNCLEAR"
+  ai_features: []
+  decision_scope: null
+  data_categories: []
+  obligations: []
+  missing_docs_template: []
+  source_url: ""
+  last_verified: ""
+  notes: null

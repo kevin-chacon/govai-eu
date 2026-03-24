@@ -1,0 +1,141 @@
+# Salesforce AI Tools — govai Registry
+# Last verified: 2026-01
+
+- name: "Salesforce Einstein Lead Scoring"
+  vendor: "Salesforce"
+  aliases:
+    - "Einstein Lead Scoring"
+    - "Salesforce Lead Scoring"
+    - "SFDC Einstein Lead Scoring"
+  risk_tier: "HIGH"
+  ai_features:
+    - "Predictive lead scoring based on historical conversion data"
+    - "Automatic lead prioritisation"
+    - "Lead routing recommendations"
+  decision_scope: >
+    Autonomously scores and ranks leads, which directly determines
+    sales team attention and resource allocation. Can route leads
+    to specific teams based on predicted conversion likelihood.
+  data_categories:
+    - "Lead contact information"
+    - "Lead engagement and behavioural data"
+    - "Historical sales conversion data"
+    - "Firmographic data"
+  obligations:
+    - "Conformity assessment before deployment"
+    - "Risk management system"
+    - "Data governance and quality controls"
+    - "Technical documentation"
+    - "Record-keeping and logging"
+    - "Transparency to affected individuals"
+    - "Human oversight mechanism"
+  missing_docs_template:
+    - "Conformity assessment report"
+    - "Algorithmic impact assessment for lead routing"
+    - "Data quality documentation"
+    - "Human oversight procedures for lead scoring overrides"
+  source_url: "https://www.salesforce.com/products/einstein/features/"
+  last_verified: "2026-01"
+  notes: >
+    HIGH risk because autonomous lead routing can determine access
+    to commercial services and affects individuals' economic outcomes.
+
+- name: "Salesforce Einstein Opportunity Scoring"
+  vendor: "Salesforce"
+  aliases:
+    - "Einstein Opportunity Scoring"
+    - "Salesforce Opportunity AI"
+    - "SFDC Einstein Opportunity Scoring"
+  risk_tier: "HIGH"
+  ai_features:
+    - "Opportunity win probability prediction"
+    - "Deal health assessment"
+    - "Revenue forecasting"
+  decision_scope: >
+    Scores opportunities by predicted win likelihood, influencing
+    which deals receive sales resources and management attention.
+  data_categories:
+    - "Opportunity and deal data"
+    - "Account and contact information"
+    - "Historical win/loss data"
+    - "Sales activity logs"
+  obligations:
+    - "Conformity assessment before deployment"
+    - "Risk management system"
+    - "Data governance and quality controls"
+    - "Technical documentation"
+    - "Record-keeping and logging"
+    - "Human oversight mechanism"
+  missing_docs_template:
+    - "Conformity assessment report"
+    - "Algorithmic impact assessment"
+    - "Data quality documentation"
+  source_url: "https://www.salesforce.com/products/einstein/features/"
+  last_verified: "2026-01"
+  notes: >
+    HIGH risk — opportunity scoring influences resource allocation
+    decisions that affect commercial access.
+
+- name: "Salesforce Einstein Case Classification"
+  vendor: "Salesforce"
+  aliases:
+    - "Einstein Case Classification"
+    - "Salesforce Case AI"
+    - "Einstein Case Routing"
+  risk_tier: "LIMITED"
+  ai_features:
+    - "Automatic case categorisation"
+    - "Priority prediction"
+    - "Case routing to appropriate teams"
+    - "Suggested responses for agents"
+  decision_scope: >
+    Classifies incoming support cases and routes them to teams.
+    Agent reviews and handles the case; classification assists
+    but does not resolve cases autonomously.
+  data_categories:
+    - "Customer support case content"
+    - "Customer contact information"
+    - "Historical case resolution data"
+  obligations:
+    - "Transparency: disclose AI involvement in case routing"
+    - "Mark AI-suggested responses to service agents"
+  missing_docs_template:
+    - "AI disclosure policy for customer service"
+    - "Case routing algorithm documentation"
+  source_url: "https://www.salesforce.com/products/einstein/features/"
+  last_verified: "2026-01"
+  notes: >
+    LIMITED when used for case categorisation with human agent review.
+    If configured to autonomously resolve cases or determine service
+    access levels, risk may increase to HIGH.
+
+- name: "Salesforce Einstein GPT"
+  vendor: "Salesforce"
+  aliases:
+    - "Einstein GPT"
+    - "Salesforce AI"
+    - "Salesforce Generative AI"
+    - "Einstein Copilot"
+  risk_tier: "UNCLEAR"
+  ai_features:
+    - "Generative AI for email drafting"
+    - "AI-powered sales and service responses"
+    - "Natural language data queries"
+    - "Automated content generation"
+  decision_scope: null
+  data_categories:
+    - "CRM data across sales, service, and marketing"
+    - "Customer communication history"
+    - "Business documents"
+  obligations:
+    - "Depends on deployment configuration and use case"
+    - "Transparency obligations likely apply (AI-generated content)"
+  missing_docs_template:
+    - "Use-case-specific risk assessment"
+    - "AI content disclosure policy"
+  source_url: "https://www.salesforce.com/artificial-intelligence/"
+  last_verified: "2026-01"
+  notes: >
+    UNCLEAR because Einstein GPT is a platform capability that can
+    be deployed across many contexts. Risk depends on whether output
+    is human-reviewed (LIMITED) or drives autonomous decisions (HIGH).

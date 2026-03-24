@@ -1,0 +1,87 @@
+# Google AI Tools — govai Registry
+# Last verified: 2026-01
+
+- name: "Google Workspace Duet AI"
+  vendor: "Google"
+  aliases:
+    - "Duet AI"
+    - "Google Duet AI"
+    - "Gemini for Workspace"
+    - "Google Workspace AI"
+  risk_tier: "LIMITED"
+  ai_features:
+    - "Document drafting and summarisation in Google Docs"
+    - "Email composition assistance in Gmail"
+    - "Presentation generation in Google Slides"
+    - "Data analysis and formula suggestions in Google Sheets"
+    - "Meeting summarisation in Google Meet"
+  decision_scope: "Generates suggestions and drafts; human reviews and acts on them."
+  data_categories:
+    - "Business documents and emails"
+    - "Spreadsheet data"
+    - "Meeting transcripts and recordings"
+    - "Presentation content"
+  obligations:
+    - "Transparency: disclose AI-generated content"
+    - "Mark AI-assisted content where applicable"
+  missing_docs_template:
+    - "AI usage disclosure policy"
+    - "Guidelines for reviewing AI-generated content"
+  source_url: "https://workspace.google.com/solutions/ai/"
+  last_verified: "2026-01"
+  notes: >
+    LIMITED because it generates content suggestions that humans
+    review before use. Rebranded from Duet AI to Gemini for Workspace.
+
+- name: "Google Vertex AI"
+  vendor: "Google"
+  aliases:
+    - "Vertex AI"
+    - "Google Cloud AI Platform"
+    - "GCP Vertex AI"
+  risk_tier: "UNCLEAR"
+  ai_features:
+    - "Custom ML model training and deployment"
+    - "AutoML for structured and unstructured data"
+    - "Generative AI model hosting (PaLM, Gemini)"
+    - "MLOps and model management"
+  decision_scope: null
+  data_categories:
+    - "Depends entirely on deployment configuration"
+  obligations:
+    - "Depends on downstream application risk tier"
+    - "Platform-level: maintain deployment and access logs"
+  missing_docs_template:
+    - "Downstream application risk assessment"
+    - "Per-deployment data processing documentation"
+  source_url: "https://cloud.google.com/vertex-ai"
+  last_verified: "2026-01"
+  notes: >
+    Vertex AI is a platform, not a product. Risk tier depends
+    entirely on what the customer deploys. Each application built
+    on Vertex AI must be assessed individually.
+
+- name: "Gmail Smart Compose"
+  vendor: "Google"
+  aliases:
+    - "Smart Compose"
+    - "Gmail AI"
+    - "Gmail autocomplete"
+  risk_tier: "MINIMAL"
+  ai_features:
+    - "Predictive text completion for email composition"
+    - "Context-aware phrase suggestions"
+  decision_scope: "Suggests text completions; user accepts or ignores each suggestion by pressing Tab."
+  data_categories:
+    - "Email content being composed"
+    - "User writing patterns"
+  obligations:
+    - "No specific EU AI Act obligations for MINIMAL risk"
+    - "Voluntary: follow codes of conduct for AI systems"
+  missing_docs_template:
+    - "No mandatory documentation required"
+  source_url: "https://support.google.com/mail/answer/9116836"
+  last_verified: "2026-01"
+  notes: >
+    MINIMAL risk — predictive text with full user control.
+    No autonomous decisions affecting individuals.

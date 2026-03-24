@@ -1,0 +1,96 @@
+# HubSpot AI Tools — govai Registry
+# Last verified: 2026-01
+
+- name: "HubSpot AI Content Assistant"
+  vendor: "HubSpot"
+  aliases:
+    - "HubSpot Content Assistant"
+    - "HubSpot AI Writer"
+    - "HubSpot Content AI"
+  risk_tier: "MINIMAL"
+  ai_features:
+    - "Blog post and marketing copy generation"
+    - "Social media post drafting"
+    - "Email marketing content suggestions"
+    - "Content tone and style adjustments"
+  decision_scope: "Generates marketing content drafts; marketer reviews and edits before publishing."
+  data_categories:
+    - "Marketing content and copy"
+    - "Brand guidelines and tone data"
+  obligations:
+    - "No specific EU AI Act obligations for MINIMAL risk"
+    - "Voluntary: follow codes of conduct for AI systems"
+  missing_docs_template:
+    - "No mandatory documentation required"
+  source_url: "https://www.hubspot.com/products/artificial-intelligence"
+  last_verified: "2026-01"
+  notes: >
+    MINIMAL risk — content generation tool with full human editorial
+    control. No autonomous decisions affecting individuals.
+
+- name: "HubSpot Predictive Lead Scoring"
+  vendor: "HubSpot"
+  aliases:
+    - "HubSpot Lead Scoring"
+    - "HubSpot AI Lead Scoring"
+    - "HubSpot Predictive Scoring"
+  risk_tier: "HIGH"
+  ai_features:
+    - "Predictive lead scoring based on engagement and fit"
+    - "Lead prioritisation for sales teams"
+    - "Conversion likelihood prediction"
+  decision_scope: >
+    Autonomously scores leads and determines which leads receive
+    sales attention, directly affecting commercial outcomes for
+    the individuals and companies being scored.
+  data_categories:
+    - "Lead contact and company information"
+    - "Website engagement and behavioural data"
+    - "Email interaction history"
+    - "Form submission data"
+  obligations:
+    - "Conformity assessment before deployment"
+    - "Risk management system"
+    - "Data governance and quality controls"
+    - "Technical documentation"
+    - "Record-keeping and logging"
+    - "Transparency to affected individuals"
+    - "Human oversight mechanism"
+  missing_docs_template:
+    - "Conformity assessment report"
+    - "Algorithmic impact assessment"
+    - "Data quality documentation"
+    - "Human oversight procedures"
+  source_url: "https://www.hubspot.com/products/crm/lead-scoring"
+  last_verified: "2026-01"
+  notes: >
+    HIGH risk — predictive scoring drives sales routing decisions
+    that affect access to commercial services.
+
+- name: "HubSpot ChatSpot"
+  vendor: "HubSpot"
+  aliases:
+    - "ChatSpot"
+    - "HubSpot AI Chat"
+    - "HubSpot Chatbot"
+  risk_tier: "LIMITED"
+  ai_features:
+    - "Conversational AI for CRM queries"
+    - "Natural language CRM data lookup"
+    - "AI-assisted report generation"
+    - "Customer-facing chat interactions"
+  decision_scope: "Responds to queries and generates reports; does not make autonomous business decisions."
+  data_categories:
+    - "CRM data (contacts, deals, companies)"
+    - "User queries and conversation history"
+  obligations:
+    - "Transparency: disclose AI nature to users interacting with chatbot"
+    - "Mark AI-generated responses in customer communications"
+  missing_docs_template:
+    - "Chatbot AI disclosure notice"
+    - "Customer-facing AI transparency policy"
+  source_url: "https://www.hubspot.com/products/artificial-intelligence"
+  last_verified: "2026-01"
+  notes: >
+    LIMITED because it is a chatbot that must disclose its AI nature.
+    Transparency obligation under EU AI Act Article 50.

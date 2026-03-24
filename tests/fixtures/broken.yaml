@@ -1,0 +1,4 @@
+this is not valid yaml: [
+  unterminated list
+  missing: colon: everywhere
+  - broken: {nesting

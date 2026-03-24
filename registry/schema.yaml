@@ -1,0 +1,53 @@
+# govai Registry Schema
+#
+# Every tool entry in registry/tools/*.yaml must follow this structure.
+# All fields are required unless marked optional.
+#
+# ------------------------------------------------------------------
+
+# Required. Full product name as commonly referred to.
+name: "Full product name"
+
+# Required. Company that makes the tool.
+vendor: "Company name"
+
+# Required. Alternative names, abbreviations, or vendor+short name combos.
+# Used for fuzzy matching during lookup.
+aliases:
+  - "Alternative name 1"
+  - "Abbreviation"
+
+# Required. EU AI Act risk tier.
+# One of: UNACCEPTABLE | HIGH | LIMITED | MINIMAL | UNCLEAR
+risk_tier: "UNCLEAR"
+
+# Required. List of specific AI capabilities the tool provides.
+ai_features:
+  - "AI capability 1"
+  - "AI capability 2"
+
+# Required (nullable). Description of what autonomous decisions the tool makes.
+# Set to null if no autonomous decisions are identified.
+decision_scope: null
+
+# Required. Types of data the AI processes.
+data_categories:
+  - "Data type 1"
+
+# Required. Specific EU AI Act obligations for the assigned risk tier.
+obligations:
+  - "Obligation 1"
+
+# Required. Documentation that is typically absent for this tool.
+missing_docs_template:
+  - "Missing document 1"
+
+# Required. URL to vendor documentation or product page.
+source_url: "https://example.com"
+
+# Required. Date the entry was last verified, in YYYY-MM format.
+last_verified: "2026-01"
+
+# Optional. Caveats about when risk tier may differ,
+# configuration-dependent factors, or verification suggestions.
+notes: null

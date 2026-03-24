@@ -1,0 +1,165 @@
+# Microsoft AI Tools — govai Registry
+# Last verified: 2026-01
+
+- name: "Microsoft 365 Copilot"
+  vendor: "Microsoft"
+  aliases:
+    - "M365 Copilot"
+    - "Office Copilot"
+    - "Microsoft Copilot"
+    - "Copilot for Microsoft 365"
+  risk_tier: "LIMITED"
+  ai_features:
+    - "Document drafting and summarisation"
+    - "Email composition suggestions"
+    - "Presentation generation from prompts"
+    - "Meeting transcript summarisation"
+    - "Data analysis in Excel via natural language"
+  decision_scope: "Generates content suggestions; human reviews and approves all output before use."
+  data_categories:
+    - "Business documents and emails"
+    - "Meeting transcripts"
+    - "Spreadsheet data"
+    - "Presentation content"
+  obligations:
+    - "Transparency: disclose AI-generated content to recipients"
+    - "Mark AI-generated or AI-assisted content where applicable"
+  missing_docs_template:
+    - "AI usage disclosure policy for outbound communications"
+    - "Internal guidelines on reviewing AI-generated content"
+  source_url: "https://www.microsoft.com/en-us/microsoft-365/copilot"
+  last_verified: "2026-01"
+  notes: >
+    Risk tier is LIMITED because Copilot generates content that a human
+    reviews before sending. If configured to send content autonomously
+    (e.g. auto-reply), risk may increase to HIGH.
+
+- name: "Microsoft Copilot for HR"
+  vendor: "Microsoft"
+  aliases:
+    - "Copilot for HR"
+    - "Microsoft Viva Copilot"
+    - "Viva Copilot for HR"
+  risk_tier: "HIGH"
+  ai_features:
+    - "Employee performance analysis"
+    - "Hiring candidate screening assistance"
+    - "Workforce planning recommendations"
+    - "Attrition risk prediction"
+  decision_scope: >
+    Provides recommendations on hiring, promotion, and workforce
+    planning decisions that directly affect employment outcomes.
+  data_categories:
+    - "Employee performance data"
+    - "Hiring candidate profiles"
+    - "Workforce demographics"
+    - "Compensation data"
+  obligations:
+    - "Conformity assessment before deployment"
+    - "Risk management system"
+    - "Data governance and quality controls"
+    - "Technical documentation"
+    - "Record-keeping and logging"
+    - "Transparency to affected employees"
+    - "Human oversight mechanism"
+  missing_docs_template:
+    - "Conformity assessment report"
+    - "Algorithmic impact assessment"
+    - "Data quality and governance documentation"
+    - "Human oversight procedures"
+  source_url: "https://www.microsoft.com/en-us/microsoft-viva"
+  last_verified: "2026-01"
+  notes: >
+    HIGH risk because it assists in employment decisions (Annex III).
+    Risk applies regardless of whether final decisions are automated
+    or human-reviewed.
+
+- name: "Azure OpenAI Service"
+  vendor: "Microsoft"
+  aliases:
+    - "Azure OpenAI"
+    - "AOAI"
+    - "Azure GPT"
+  risk_tier: "UNCLEAR"
+  ai_features:
+    - "GPT model hosting and inference"
+    - "Embeddings generation"
+    - "Image generation via DALL-E"
+    - "Speech-to-text and text-to-speech"
+  decision_scope: null
+  data_categories:
+    - "Depends entirely on deployment configuration"
+  obligations:
+    - "Depends on downstream application risk tier"
+    - "Platform-level: maintain usage logs and access controls"
+  missing_docs_template:
+    - "Downstream application risk assessment"
+    - "Data processing documentation for each deployment"
+  source_url: "https://azure.microsoft.com/en-us/products/ai-services/openai-service"
+  last_verified: "2026-01"
+  notes: >
+    Azure OpenAI is a platform, not a product. Risk tier depends
+    entirely on what the customer builds on top of it. Each deployment
+    must be assessed individually.
+
+- name: "Microsoft Dynamics 365 AI"
+  vendor: "Microsoft"
+  aliases:
+    - "Dynamics 365 Copilot"
+    - "Dynamics AI"
+    - "D365 AI"
+  risk_tier: "LIMITED"
+  ai_features:
+    - "Sales forecasting"
+    - "Customer sentiment analysis"
+    - "Predictive lead scoring"
+    - "AI-generated customer service responses"
+  decision_scope: >
+    Generates predictions and suggestions for sales and service;
+    human operators act on recommendations.
+  data_categories:
+    - "Customer relationship data"
+    - "Sales pipeline data"
+    - "Customer service interactions"
+  obligations:
+    - "Transparency: disclose AI involvement in customer interactions"
+    - "Mark AI-generated content in customer communications"
+  missing_docs_template:
+    - "AI disclosure policy for customer-facing interactions"
+    - "Module-specific risk assessment"
+  source_url: "https://dynamics.microsoft.com/en-us/ai/"
+  last_verified: "2026-01"
+  notes: >
+    Risk tier varies by module. Sales forecasting is MINIMAL.
+    Customer service chatbots are LIMITED (transparency obligation).
+    If used for autonomous decisions affecting individuals (e.g. credit
+    scoring), specific modules may be HIGH.
+
+- name: "GitHub Copilot"
+  vendor: "Microsoft"
+  aliases:
+    - "GH Copilot"
+    - "Copilot for code"
+    - "GitHub AI"
+  risk_tier: "MINIMAL"
+  ai_features:
+    - "Code completion and suggestion"
+    - "Natural language to code generation"
+    - "Code explanation and documentation"
+    - "Pull request summarisation"
+  decision_scope: "Suggests code completions; developer reviews and accepts or rejects each suggestion."
+  data_categories:
+    - "Source code"
+    - "Code comments and documentation"
+    - "Repository metadata"
+  obligations:
+    - "No specific EU AI Act obligations for MINIMAL risk"
+    - "Voluntary: follow codes of conduct for AI development tools"
+  missing_docs_template:
+    - "AI-assisted code review policy"
+    - "Intellectual property guidelines for AI-generated code"
+  source_url: "https://github.com/features/copilot"
+  last_verified: "2026-01"
+  notes: >
+    MINIMAL risk — code suggestions with full developer oversight.
+    No autonomous decisions affecting natural persons.
