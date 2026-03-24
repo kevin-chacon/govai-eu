@@ -169,7 +169,7 @@ The `MODEL_KEY_MAP` in `llm.py` maps model string prefixes to their required env
 
 ## How EU AI Act information is used
 
-govai-eu does **not** contain the full text of the EU AI Act. Instead, it encodes the regulation's classification framework in three places:
+govai-eu does **not** contain the full text of the EU AI Act. Instead, it encodes a simplified version of the regulation's classification framework in four places within the codebase.
 
 ### 1. The LLM system prompt (`llm.py`)
 
@@ -199,7 +199,7 @@ These definitions are shown in the report's "Risk Tier Reference" section so rea
 The `next_steps_section()` function generates severity-based guidance depending on which tiers appear in the report:
 
 - **UNACCEPTABLE found:** Immediate discontinuation warning. No grace period.
-- **HIGH found:** Lists the 5 specific compliance requirements (technical documentation per Article 11, risk management per Article 9, human oversight per Article 14, audit logging, transparency notices).
+- **HIGH found:** Lists the 5 specific compliance requirements (technical documentation per Article 11, risk management per Article 9, human oversight per Article 14, audit logging, transparency notices). References the August 2026 enforcement deadline.
 - **UNCLEAR found:** Treat-as-HIGH advisory with guidance to contact the vendor.
 - **LIMITED found:** Add AI disclosure notices.
 - **All MINIMAL:** All-clear message — keep the report as evidence of due diligence.
@@ -211,6 +211,72 @@ Each registry entry contains pre-researched `obligations` and `missing_docs_temp
 - The tool's vendor documentation and product pages
 - The EU AI Act text (particularly Article 6 and Annex III for HIGH risk classification)
 - The tool's actual decision-making scope — whether it makes autonomous decisions affecting people's rights
+
+---
+
+## Honest assessment — how well is the EU AI Act reflected?
+
+This section is an honest evaluation of what govai-eu covers, what it doesn't, and when you should use something more sophisticated.
+
+### What govai-eu gets right
+
+**The risk tier model is correct.** The EU AI Act uses a four-tier risk classification (Unacceptable, High, Limited, Minimal). govai-eu implements all four tiers plus UNCLEAR as a safety net. The tier definitions are accurate summaries of the regulation's intent.
+
+**The HIGH risk classification criteria are broadly correct.** The system prompt references Annex III categories (employment, critical infrastructure, education, essential services, law enforcement, migration, justice, democratic processes) and safety components of products under EU product safety law. These are the correct triggers for HIGH risk classification under Articles 6(2) and Annex III.
+
+**The prohibited practices are correct.** The UNACCEPTABLE tier covers the four main prohibited categories from Article 5: social scoring by public authorities, real-time biometric identification in public spaces, subliminal manipulation, and exploitation of vulnerable groups.
+
+**The compliance obligations for HIGH risk are correct.** The next steps section references the right articles: risk management (Article 9), technical documentation (Article 11), and human oversight (Article 14). The enforcement deadline of August 2026 for most high-risk systems is correct.
+
+### What is simplified or missing
+
+**The classification is a simplified summary, not a legal analysis.** The entire EU AI Act is 144 pages with 113 articles, 13 annexes, and hundreds of recitals providing interpretive context. govai-eu distils this into ~6 lines of LLM instruction and 5 dictionary entries. This means:
+
+| EU AI Act element | govai-eu coverage |
+|---|---|
+| Article 5 — Prohibited practices (8 subcategories) | Covered, but summarised to 4 high-level categories. Misses nuances like the exception for targeted biometric identification in serious crime. |
+| Article 6 + Annex III — High-risk classification (8 domains, ~35 specific use cases) | Covered at the domain level. Does not enumerate all 35 specific use cases within each domain. |
+| Article 6(1) — Safety components of regulated products | Mentioned in the prompt but not systematically applied. |
+| Articles 8–15 — Detailed HIGH risk obligations | Only Articles 9, 11, 14 are referenced. Articles 8 (quality management), 10 (data governance), 12 (record-keeping), 13 (transparency), 15 (accuracy/robustness) are not mentioned. |
+| Article 50 — LIMITED risk transparency obligations | Covered generically ("disclose AI") but missing specifics: deepfakes labelling, AI-generated text marking when published on public interest topics. |
+| Articles 16–29 — Provider and deployer obligations | Not covered. The regulation distinguishes between providers (who build AI) and deployers (who use it). govai-eu treats the user as a deployer but doesn't explain provider obligations or supply chain duties. |
+| Article 53 — GPAI model obligations | Not covered. General-purpose AI model providers (e.g. OpenAI, Anthropic) have separate obligations. govai-eu classifies the end tool, not the underlying model. |
+| Annexes IV–XI — Detailed technical standards | Not referenced. These specify the exact content of technical documentation, conformity assessment procedures, and EU database registration. |
+| Recitals — Interpretive guidance | Not used. The recitals provide critical context for borderline cases (e.g. when recommendation engines cross from MINIMAL to LIMITED). |
+| Delegated acts and implementing acts | Not tracked. The European Commission is expected to issue further specifications that will change the interpretation of several articles. |
+
+**The LLM classification depends on the model's training data.** govai-eu gives the LLM a 6-line classification guide and trusts it to apply this correctly. The quality of the classification depends entirely on:
+
+- How well the LLM understands the tool being classified
+- How well the LLM interprets the classification criteria
+- Whether the LLM's training data includes the EU AI Act text
+
+Large cloud models (Claude, GPT-4o) generally produce reasonable classifications. Smaller local models may misclassify borderline cases because they have less knowledge of both the tools and the regulation.
+
+**There is no deployer-specific analysis.** The EU AI Act distinguishes between a tool's inherent risk and how an organisation uses it. A CRM system is MINIMAL risk when used for contact management, but could become HIGH risk if an organisation uses its lead scoring to make automated hiring decisions. govai-eu classifies the tool, not the deployment.
+
+**There is no per-tool obligation mapping.** The report says "you need technical documentation" but doesn't generate a checklist of what that documentation must contain (Annex IV specifies 15 items). A compliance professional would need to read the regulation to know what to actually produce.
+
+### When govai-eu is sufficient
+
+- **Initial inventory and awareness.** You want a map of which tools might trigger EU AI Act obligations. govai-eu gives you a starting point that is directionally correct.
+- **Internal prioritisation.** Your team needs to know which tools to focus on first. The tier ordering (UNACCEPTABLE → HIGH → LIMITED → MINIMAL) is the right priority.
+- **Board-level reporting.** A non-technical summary showing "we have 3 HIGH risk AI systems that need compliance work" is useful and govai-eu produces it well.
+- **Due diligence evidence.** Even an imperfect inventory shows you are taking EU AI Act compliance seriously. The report serves as evidence of active risk assessment.
+
+### When you need something more sophisticated
+
+- **You have HIGH risk systems and need to build compliance documentation.** govai-eu tells you that you need a conformity assessment but doesn't tell you how to do one. You need a qualified EU AI Act advisor or a specialised compliance platform.
+- **You are a provider (builder) of AI systems, not just a deployer.** Provider obligations (Articles 16–22) are significantly more detailed than deployer obligations. govai-eu doesn't cover them.
+- **You need legally defensible classification.** If a regulator asks "why did you classify this as LIMITED?", your answer cannot be "an open-source CLI tool told us so." You need a documented legal analysis tied to specific articles and recitals.
+- **You have borderline cases.** When a tool sits between two tiers — for example, a chatbot that also makes automated recommendations affecting access to services — the correct tier depends on a detailed analysis of Articles 6(2), Annex III, and the relevant recitals. govai-eu does not do this analysis.
+- **You need to track regulatory changes.** The EU AI Act is supplemented by delegated acts and harmonised standards that are still being drafted. govai-eu does not track these.
+
+### Summary
+
+govai-eu is an **awareness tool, not a compliance tool.** It produces a directionally correct inventory that helps organisations identify which AI tools need attention, in what priority order, and roughly what kind of compliance work is required. Its classification is based on a genuine (if simplified) reading of the EU AI Act.
+
+It should be treated as Step 1 of a compliance process — the step where you find out what you're dealing with. Steps 2 and beyond (detailed legal analysis, documentation production, conformity assessment, monitoring) require human expertise and are outside govai-eu's scope.
 
 ### What govai-eu does NOT do
 
@@ -234,15 +300,14 @@ govai/
   classifier.py     Orchestration: parse input → classify → build report
   reporter.py       Markdown, JSON, and HTML report generation
   cli.py            Typer CLI: scan, models, --version
-
-registry/
-  schema.yaml       Field definitions for tool entries
-  tools/
-    _template.yaml  Empty template for new entries
-    google.yaml     Google Cloud AI tools
-    hubspot.yaml    HubSpot AI tools
-    microsoft.yaml  Microsoft AI tools (M365, Azure, Dynamics)
-    salesforce.yaml Salesforce AI tools (Einstein suite)
+  registry/
+    schema.yaml       Field definitions for tool entries
+    tools/
+      _template.yaml  Empty template for new entries
+      google.yaml     Google Cloud AI tools
+      hubspot.yaml    HubSpot AI tools
+      microsoft.yaml  Microsoft AI tools (M365, Azure, Dynamics)
+      salesforce.yaml Salesforce AI tools (Einstein suite)
 
 tests/
   test_models.py    Data model serialisation and validation
