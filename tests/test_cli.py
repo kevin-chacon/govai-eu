@@ -38,3 +38,20 @@ class TestModelsCommand:
         """Usage hint appears after the table."""
         result = runner.invoke(app, ["models"])
         assert "govai scan tools.csv --llm-model" in result.output
+
+    def test_models_shows_setup_guide(self):
+        """Setup guide with provider URLs appears in output."""
+        result = runner.invoke(app, ["models"])
+        assert "STEP 1" in result.output
+        assert "console.anthropic.com" in result.output
+
+    def test_models_shows_windows_instructions(self):
+        """Windows setup instructions appear in output."""
+        result = runner.invoke(app, ["models"])
+        assert "PowerShell" in result.output
+        assert "set ANTHROPIC" in result.output
+
+    def test_models_shows_ollama_no_key_section(self):
+        """Ollama no-key alternative section appears in output."""
+        result = runner.invoke(app, ["models"])
+        assert "No account, no key" in result.output

@@ -6,24 +6,83 @@ from pathlib import Path
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
 from rich.table import Table
 
 from govai.classifier import classify_inventory, parse_input_file
 from govai.models import ConfidenceSource, RiskTier
 from govai.reporter import write_reports
 
+_HELP_EPILOG = """
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ API KEY SETUP — How to connect your LLM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ govai uses a language model to classify tools not
+ found in its registry. You need an API key from
+ your chosen provider.
+
+ STEP 1 — Get an API key from your provider:
+   Anthropic (Claude):  console.anthropic.com
+   OpenAI (GPT-4o):     platform.openai.com
+   Mistral AI:          console.mistral.ai
+   Google (Gemini):     aistudio.google.com
+   DeepSeek:            platform.deepseek.com
+
+ STEP 2 — Set it as an environment variable:
+
+   On Mac or Linux — run this in your terminal:
+     export ANTHROPIC_API_KEY="your-key-here"
+
+   On Windows — run this in Command Prompt:
+     set ANTHROPIC_API_KEY=your-key-here
+
+   On Windows PowerShell:
+     $env:ANTHROPIC_API_KEY="your-key-here"
+
+ STEP 3 — Run govai scan normally:
+   govai scan tools.csv
+
+ To make it permanent (so you don't have to set it
+ again each time):
+
+   On Mac/Linux — add the export line to ~/.zshrc
+                  or ~/.bashrc
+   On Windows   — set it via System Properties >
+                  Environment Variables (search
+                  "environment variables" in the
+                  Start menu)
+
+ NO API KEY? Use a local model instead — completely
+ free, no account needed, no data leaves your machine:
+
+   1. Install Ollama from: ollama.com
+   2. Run in terminal: ollama pull llama3.2
+   3. Run govai:
+      govai scan tools.csv --llm-model ollama/llama3.2
+
+ Run `govai models` to see all supported models.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"""
+
 app = typer.Typer(
     name="govai",
     help="EU AI Act compliance inventory from a software list.",
     add_completion=False,
+    rich_markup_mode="rich",
 )
 
 console = Console()
 
 
-@app.callback()
-def callback() -> None:
+@app.callback(invoke_without_command=True)
+def callback(
+    ctx: typer.Context,
+) -> None:
     """govai — EU AI Act compliance inventory from a software list."""
+    if ctx.invoked_subcommand is None:
+        console.print(ctx.get_help())
+        console.print(_HELP_EPILOG)
 
 
 @app.command()
@@ -155,6 +214,32 @@ def scan(
     console.print(
         f"Reports written to: {', '.join(str(p) for p in written)}"
     )
+
+    # API key warning
+    key_issues = [
+        r for r in report.results
+        if r.risk_tier == RiskTier.UNCLEAR
+        and r.notes
+        and ("API key not found" in r.notes or "API key invalid" in r.notes)
+    ]
+    if key_issues:
+        warning_text = (
+            f"[bold]{len(key_issues)} tool(s)[/bold] could not be classified "
+            f"because the API key for [cyan]{llm_model}[/cyan] was not found.\n\n"
+            f"These tools are marked UNCLEAR in the report.\n"
+            f"Run [bold]govai --help[/bold] for instructions on setting up "
+            f"your API key, or switch to a local model:\n\n"
+            f"  [cyan]govai scan tools.csv --llm-model ollama/llama3.2[/cyan]\n\n"
+            f"No API key or installation required for local models."
+        )
+        console.print()
+        console.print(Panel(
+            warning_text,
+            title="⚠  API Key Warning",
+            border_style="yellow",
+            padding=(1, 2),
+        ))
+
     console.print(
         "Tip: run `govai models` to see all supported LLM options.\n"
     )
@@ -257,3 +342,79 @@ def models() -> None:
         "Cloud models produce more accurate EU AI Act classifications."
     )
     console.print("Install Ollama from: ollama.com")
+
+    # --- API key setup guide ---
+    console.print()
+    console.print(Panel(
+        (
+            "[bold]STEP 1[/bold] — Get a key from your chosen provider:\n"
+            "\n"
+            "  Anthropic (Claude)  →  console.anthropic.com\n"
+            "  OpenAI (GPT-4o)     →  platform.openai.com\n"
+            "  Mistral AI          →  console.mistral.ai\n"
+            "  Google (Gemini)     →  aistudio.google.com\n"
+            "  DeepSeek            →  platform.deepseek.com\n"
+            "  Groq                →  console.groq.com\n"
+            "\n"
+            "[bold]STEP 2[/bold] — Set it as an environment variable:\n"
+            "\n"
+            "  Mac / Linux — run in your terminal:\n"
+            '    export ANTHROPIC_API_KEY="your-key-here"\n'
+            "\n"
+            "  Windows Command Prompt:\n"
+            "    set ANTHROPIC_API_KEY=your-key-here\n"
+            "\n"
+            "  Windows PowerShell:\n"
+            '    $env:ANTHROPIC_API_KEY="your-key-here"\n'
+            "\n"
+            "[bold]STEP 3[/bold] — Run govai scan normally:\n"
+            "    govai scan tools.csv\n"
+            "\n"
+            "  govai picks up the key automatically — you do not\n"
+            "  need to include it in the command."
+        ),
+        title="HOW TO SET UP YOUR API KEY",
+        border_style="cyan",
+        padding=(1, 2),
+    ))
+
+    console.print(Panel(
+        (
+            "  Mac / Linux:\n"
+            "    Add the export line to ~/.zshrc or ~/.bashrc\n"
+            "    Then run: source ~/.zshrc\n"
+            "\n"
+            "  Windows:\n"
+            '    Search "environment variables" in the Start menu\n'
+            '    Open "Edit the system environment variables"\n'
+            '    Click "Environment Variables"\n'
+            '    Under "User variables" click New\n'
+            "    Variable name:  ANTHROPIC_API_KEY\n"
+            "    Variable value: your-key-here"
+        ),
+        title="TO MAKE IT PERMANENT",
+        subtitle="so you never have to set it again",
+        border_style="dim",
+        padding=(1, 2),
+    ))
+
+    console.print(Panel(
+        (
+            "  Local models run entirely on your machine.\n"
+            "  No account, no key, no data sent anywhere.\n"
+            "\n"
+            "  1. Install Ollama from: ollama.com\n"
+            "  2. Pull a model — run in your terminal:\n"
+            "       ollama pull llama3.2\n"
+            "  3. Run govai:\n"
+            "       govai scan tools.csv --llm-model ollama/llama3.2\n"
+            "\n"
+            "  Other local models: ollama pull qwen2.5\n"
+            "                      ollama pull deepseek-r1\n"
+            "                      ollama pull mistral"
+        ),
+        title="NO API KEY? USE A LOCAL MODEL INSTEAD",
+        border_style="green",
+        padding=(1, 2),
+    ))
+
